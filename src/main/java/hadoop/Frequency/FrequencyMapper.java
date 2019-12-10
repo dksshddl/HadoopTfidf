@@ -17,7 +17,7 @@ public class FrequencyMapper extends Mapper<LongWritable, Text, Text, IntWritabl
     // (document, each line contents) --> (word@document, 1)
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        Path fileName = ((FileSplit) context.getInputSplit()).getPath();
+        String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
 
         StringTokenizer itr = new StringTokenizer(value.toString());
         StringBuilder stringBuilder = new StringBuilder();
