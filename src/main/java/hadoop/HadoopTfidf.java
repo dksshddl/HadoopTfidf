@@ -26,7 +26,7 @@ public class HadoopTfidf {
         // initial state
         if (args.length == 2) {
             // default mode
-            conf.set("mode", "boolean");
+            conf.set("mode", TfidfReducer.AUGMENTED_FREQ);
             input = new Path(args[0]);
             output = new Path(args[1]);
         } else if (args.length == 3) {
