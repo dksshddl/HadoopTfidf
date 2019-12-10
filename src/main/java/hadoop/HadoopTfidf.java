@@ -65,8 +65,7 @@ public class HadoopTfidf {
 
         job1.waitForCompletion(true);
 
-        Configuration conf2 = new Configuration();
-        Job job2 = new Job(conf2, "Word Counts");
+        Job job2 = new Job(conf, "Word Counts");
         job2.setJarByClass(HadoopTfidf.class);
         job2.setMapperClass(WordCountMapper.class);
         job2.setReducerClass(WordCountReducer.class);
@@ -82,8 +81,7 @@ public class HadoopTfidf {
 
         job2.waitForCompletion(true);
 
-        Configuration conf3 = new Configuration();
-        Job job3 = new Job(conf3, "Word in Corpus, TF-IDF");
+        Job job3 = new Job(conf, "Word in Corpus, TF-IDF");
         job3.setJarByClass(HadoopTfidf.class);
         job3.setMapperClass(TfidfMapper.class);
         job3.setReducerClass(TfidfReducer.class);
@@ -94,7 +92,7 @@ public class HadoopTfidf {
         FileInputFormat.addInputPath(job3, wordCounts);
         FileOutputFormat.setOutputPath(job3, output);
 
-        FileSystem fs = input.getFileSystem(conf3);
+        FileSystem fs = input.getFileSystem(conf);
         FileStatus[] stat = fs.listStatus(input);
 
         job3.setJobName(String.valueOf(stat.length));
