@@ -63,9 +63,9 @@ public class TfidfReducer extends Reducer<Text, Text, Text, Text> {
 
 
             //interse document frequency quocient between the number of docs in corpus and number of docs the term appears
-            double idf = Math.abs((double) D / ((double) d + 1));
+            double idf = Math.abs((double) D / ((double) d));
             //given that log(10) = 0, just consider the term frequency in documents
-            double tfIdf = tf * Math.log10(idf);
+            double tfIdf = d == D ? tf : tf * Math.log10(idf);
 
             context.write(new Text(key + "@" + document), new Text("[" + d + "/"
                     + D + " , " + n + "/"

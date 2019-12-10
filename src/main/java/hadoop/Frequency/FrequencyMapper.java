@@ -18,15 +18,10 @@ public class FrequencyMapper extends Mapper<LongWritable, Text, Text, IntWritabl
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
-
         StringTokenizer itr = new StringTokenizer(value.toString());
-        StringBuilder stringBuilder = new StringBuilder();
 
         while (itr.hasMoreTokens()) {
-            stringBuilder.append(itr.nextToken());
-            stringBuilder.append("@");
-            stringBuilder.append(fileName);
-            word.set(stringBuilder.toString());
+            word.set(itr.nextToken() + "@" + fileName);
             context.write(word, one);
         }
     }
